@@ -1,3 +1,28 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+nav#user-profile {
+  border-left: 1px solid lightgrey;
+  padding: 5px;
+  background-color: rgb(143,72,255);
+  height: 75px;
+  color: white;
+}
+
+section#user-login {
+  width: 200px;
+}
+
+nav#user-profile a {
+  color: white;
+  text-decoration: underline;
+}
+
+section#user-login img {
+  width: 100px;
+}
+
+#header-user-profile img {
+  width: 50px;
+}

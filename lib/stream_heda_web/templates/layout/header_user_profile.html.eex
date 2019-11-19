@@ -1,0 +1,7 @@
+<section id="header-user-profile">
+  <ul>
+    <li><b><%= "#{@user.username}" %></b></li>
+    <li><%= link "Disconnect", to: Routes.auth_path(@conn, :logout) %>
+  </ul>
+  <img src="<%= "#{@user.profile_image_url}" %>" />
+</section>

@@ -17,6 +17,10 @@ defmodule StreamHedaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    get "/auth", AuthController, :index
+    get "/auth/callback", AuthController, :callback
+    get "/auth/logout", AuthController, :logout
   end
 
   # Other scopes may use custom stacks.

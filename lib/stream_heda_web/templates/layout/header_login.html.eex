@@ -1,0 +1,4 @@
+<section id="user-login">
+  <%= link "Log in with", to: Routes.auth_path(@conn, :index) %>
+  <img src="<%= Routes.static_path(@conn, "/images/twitch/Logo.webp") %>" alt="Twitch"/>
+</section>
