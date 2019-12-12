@@ -1,0 +1,10 @@
+<% alias StreamHeda.Steam  %>
+
+<%= f = form_for @changeset, "#", [phx_submit: "submit-steam-id"] %>
+  <label>
+    SteamID: <%= text_input f, :steam_id %>
+  </label>
+  <%= error_tag f, :steam_id %>
+
+  <%= submit "Submit" %>
+</form>

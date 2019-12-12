@@ -1,5 +1,6 @@
 defmodule StreamHeda.Twitch do
   use OAuth2.Strategy
+  alias StreamHeda.User
 
   # Public API
 
@@ -38,6 +39,33 @@ defmodule StreamHeda.Twitch do
     |> OAuth2.Strategy.AuthCode.get_token(params, headers)
   end
 
+  def get_user(%{"user_login" => login}) do
+    headers = [
+      "Accept": "application/json",
+      "Client-ID": Application.get_env(:stream_heda, StreamHeda.Twitch)[:client_id]
+    ]
+
+    "https://api.twitch.tv/helix/users?login=#{login}"
+    |> HTTPoison.get(headers)
+    |> case do
+      {:ok, %HTTPoison.Response{status_code: code, body: raw_body}} ->
+        {code, raw_body}
+      {:error, %{reason: reason}} ->
+        {:error, reason}
+      end
+    |> (fn {_ok, body} ->
+      body
+      |> Jason.decode!
+      |> case do
+        %{"data" => [%{"display_name" => name, "id" => id, "login" => login}]} ->
+          %{display_name: name, id: id, login: login}
+        _ ->
+          {:error, "Error during JSON parsing"}
+      end
+    end).()
+  end
+
+
   def get_user(%{access_token: token}) do
     headers = [
       "Accept": "application/json",
@@ -53,12 +81,12 @@ defmodule StreamHeda.Twitch do
       {:error, %{reason: reason}} ->
         {:error, reason}
       end
-    |> (fn {ok, body} ->
+    |> (fn {_ok, body} ->
       body
       |> Jason.decode!
       |> case do
-        %{"data" => [%{"display_name" => name, "id" => id, "email" => email, "profile_image_url" => profile_image_url}]} ->
-          %{username: name, id: id, email: email, profile_image_url: profile_image_url }
+        %{"data" => [%{"login" => login, "display_name" => name, "id" => id, "email" => email, "profile_image_url" => profile_image_url}]} ->
+          %User{login: login, display_name: name, id: String.to_integer(id), email: email, profile_picture_url: profile_image_url }
         _ ->
         {:error, "Error during JSON parsing"}
       end

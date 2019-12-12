@@ -1,0 +1,9 @@
+<h1>SHI / Leds Controls</h2>
+
+<%= f = form_for @led_color, "#", [phx_submit: "shi-led-color"] %>
+  <label>
+    Color: <%= color_input f, :color_code %>
+  </label>
+
+  <%= submit "Submit" %>
+</form>

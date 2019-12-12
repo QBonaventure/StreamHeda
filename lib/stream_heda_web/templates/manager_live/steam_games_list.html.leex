@@ -1,0 +1,9 @@
+<%= case @steam_games do
+  {:ok, games} ->
+    for sg <- games do
+
+      render(StreamHedaWeb.SteamView, "steam_game.html", game: sg)
+    end
+  {:error, _} ->
+    content_tag :p, "Steam API not working as expected"
+end %>

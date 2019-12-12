@@ -1,0 +1,11 @@
+<section id="broadcaster-list">
+  <ul>
+    <%= for bc <- @users do %>
+      <li>
+        <a href="<%= Routes.users_path(@conn, :user_page, bc.display_name) %>">
+          <%= bc.display_name %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</section>

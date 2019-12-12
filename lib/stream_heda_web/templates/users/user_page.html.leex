@@ -1,0 +1,35 @@
+<% alias StreamHedaWeb.LayoutView %>
+
+<h1><%= @user.display_name %></h1>
+<%= if StreamHeda.User.is_broadcaster(@broadcaster, @user) do %>
+  <section>
+    <a href="/manager_live">Manage my page</a>
+  </section>
+<% end %>
+
+<section id="embed-elements" class="main-section">
+  <h1>The Stream</h1>
+  <script src= "https://player.twitch.tv/js/embed/v1.js"></script>
+  <div id="video_embed"></div>
+  <script type="text/javascript">
+    var options = {
+      width: 250,)
+      height: 140,
+      channel: "<%= @user.display_name %>",
+    };
+    var player = new Twitch.Player("video_embed", options);
+    player.setVolume(0.5);
+  </script>
+
+  <iframe frameborder="0"
+          scrolling="no"
+          id="chat_embed"
+          src="http://www.twitch.tv/embed/<%= @user.display_name %>/chat"
+          height="540"
+          width="250">
+  </iframe>
+</section>
+
+<section id="shi-led-controller" class="main-section">
+  <%= Phoenix.LiveView.live_component(@socket, StreamHedaWeb.Live.Components.SHI, id: "jjj", led_color: @led_color) %>
+</section>

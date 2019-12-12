@@ -1,0 +1,14 @@
+<% alias StreamHedaWeb.LayoutView
+alias StreamHeda.User %>
+
+<section id="broadcaster-steam-games-list">
+  <h1>My Steam Games</h1>
+
+  <%= user = LayoutView.current_user(@conn)
+  case user.steam_id do
+    nil ->
+      render(StreamHedaWeb.AuthView, "steam_login.html", user: user, changeset: @changeset, conn: @conn)
+    _ ->
+      render("manager_steam_games_list.html", steam_games: @steam_games)
+    end %>
+</section>

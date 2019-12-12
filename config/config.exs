@@ -7,6 +7,10 @@
 # General application configuration
 use Mix.Config
 
+config :phoenix, template_engines: [
+  leex: Phoenix.LiveView.Engine
+]
+
 config :stream_heda,
   ecto_repos: [StreamHeda.Repo]
 

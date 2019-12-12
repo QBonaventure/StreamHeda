@@ -1,0 +1,9 @@
+<% import StreamHeda.Steam, only: [get_game_url: 1, get_playtime: 1] %>
+
+<a href="<%= get_game_url(@game) %>">
+  <section>
+    <%= img_tag @game["img_logo_url"] %>
+    <%= content_tag :p, @game["name"], class: "steam-game-title" %>
+    <%= content_tag :p, "Playtime: #{get_playtime(@game)}", class: "steam-game-playtime" %>
+  </section>
+</a>

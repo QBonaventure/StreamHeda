@@ -4,7 +4,7 @@ use Mix.Config
 config :stream_heda, StreamHeda.Repo,
   username: "postgres",
   password: "password",
-  database: "team_heda_dev",
+  database: "stream_heda_dev",
   port: "5433",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
@@ -21,6 +21,7 @@ config :stream_heda, StreamHedaWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  live_view: [signing_salt: "0Vu2hvFS"],
   watchers: [
     node: [
       "node_modules/webpack/bin/webpack.js",
